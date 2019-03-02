@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { PersistGate } from 'redux-persist/integration/react';
 
+import 'styles/common.css';
+
 // EXPORTED APP
 const App = () => (
   <div>

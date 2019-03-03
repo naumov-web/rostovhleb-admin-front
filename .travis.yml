@@ -5,7 +5,7 @@ node_js:
   - 10
 
 addons:
-  ssh_known_hosts: wis.test-task.ru
+  ssh_known_hosts: 82.202.226.188
 
 branches:
   only:

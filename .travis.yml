@@ -4,8 +4,14 @@ language: node_js
 node_js:
   - 10
 
+addons:
+  ssh_known_hosts: wis.test-task.ru
+
 branches:
   only:
     - master
 
 script: npm run build
+
+after_script:
+  - rsync -r --delete-after --quiet build $SSH_USER:$SSH_PASSWORD@$SSH_HOST:$DEPLOY_PATH

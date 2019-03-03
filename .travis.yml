@@ -14,4 +14,6 @@ branches:
 script: npm run build
 
 after_script:
-  - rsync -r --delete-after --quiet build $SSH_USER:$SSH_PASSWORD@$SSH_HOST:$DEPLOY_PATH
+  - pwd
+  - ls -la
+  #- rsync -r --delete-after --quiet build $SSH_USER:$SSH_PASSWORD@$SSH_HOST:$DEPLOY_PATH

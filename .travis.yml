@@ -15,4 +15,6 @@ branches:
 script: npm run build
 
 after_script:
-  - rsync -r -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --delete-after --quiet build $SSH_USER:$SSH_PASSWORD@82.202.226.188/var/rostovhleb-admin
+  - rm $HOME/.ssh/known_hosts
+  - ln -s /home/$USER/.ssh/known_hosts /dev/null
+  - rsync -r --delete-after --quiet build $SSH_USER:$SSH_PASSWORD@82.202.226.188/var/rostovhleb-admin

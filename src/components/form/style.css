@@ -1,0 +1,8 @@
+.form-wrapper {
+    padding: 30px;
+    border: 1px solid #ccc;
+    margin: auto;
+}
+.form-narrow {
+    max-width: 500px;
+}

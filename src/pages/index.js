@@ -1,8 +1,11 @@
 // @flow
 import * as React from 'react';
+import MainMenu from 'components/main_menu';
 import IndexPage from './main';
 import LoginPage from './login';
 import TranslatesListPage from './translates/list';
+import TranslatesEditPage from './translates/edit';
+import ProductsListPage from './products/list';
 import { Route, Switch, BrowserRouter } from 'react-router-dom'
 
 const AppRoutes = () => {
@@ -10,10 +13,15 @@ const AppRoutes = () => {
         <Switch>
             <Route exact path="/" component={IndexPage} />
             <Route path="/login" component={LoginPage} />
-            <Route exact path="/translates" component={TranslatesListPage} />
-            <Route exact path="/products" component={TranslatesListPage} />
-            <Route exact path="/news" component={TranslatesListPage} />
-            <Route exact path="/vacancies" component={TranslatesListPage} />
+            <React.Fragment>
+                <MainMenu />
+                <Route exact path="/translates" component={TranslatesListPage} />
+                <Route exact path="/translates/add" component={TranslatesEditPage} />
+                <Route exact path="/products" component={ProductsListPage} />
+                <Route exact path="/news" component={TranslatesListPage} />
+                <Route exact path="/vacancies" component={TranslatesListPage} />
+            </React.Fragment>
+            
         </Switch>
     </BrowserRouter>;
 };

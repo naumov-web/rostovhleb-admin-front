@@ -6,6 +6,7 @@ import LoginPage from './login';
 import TranslatesListPage from './translates/list';
 import TranslatesEditPage from './translates/edit';
 import ProductsListPage from './products/list';
+import ProductsEditPage from './products/edit';
 import { Route, Switch, BrowserRouter } from 'react-router-dom'
 
 const AppRoutes = () => {
@@ -18,6 +19,7 @@ const AppRoutes = () => {
                 <Route exact path="/translates" component={TranslatesListPage} />
                 <Route exact path="/translates/add" component={TranslatesEditPage} />
                 <Route exact path="/products" component={ProductsListPage} />
+                <Route exact path="/products/add" component={ProductsEditPage} />
                 <Route exact path="/news" component={TranslatesListPage} />
                 <Route exact path="/vacancies" component={TranslatesListPage} />
             </React.Fragment>

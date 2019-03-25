@@ -1,0 +1,1 @@
+export { reducer as login } from './login.duck';

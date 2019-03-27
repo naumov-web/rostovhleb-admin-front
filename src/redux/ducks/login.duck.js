@@ -16,18 +16,17 @@ const actions = createActions(
     LOGIN_REQUEST_FAIL
 );
 
-const reducer = handleActions(
+const loginReducer = handleActions(
     {
         [actions.loginRequestSuccess]: (
             state,
-            data
-        ) => {
-            let { payload: { token } } = data;
-            return {
+            { payload: { token } }
+        ) => (
+            {
                 ...state,
                 token
-            };
-        }
+            }
+        )
     },
     initialState
 );
@@ -39,7 +38,7 @@ const effects = {
             const { data } = response;
             dispatch(actions.loginRequestSuccess(data));
         } catch (e) {
-            actions.loginRequestFail();
+            dispatch(actions.loginRequestFail());
         }
         return true;
     }
@@ -50,8 +49,8 @@ const getState = state => state.login;
 const selectors = {
     getToken: createSelector(
         [getState],
-        s => s.token
+        s => s ? s.token : null
     )
 };
 
-export { initialState as state, reducer, actions, selectors, effects };
+export { initialState as state, loginReducer, actions, selectors, effects };

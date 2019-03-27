@@ -36,6 +36,9 @@ const ProductForm = () => {
                 </Form.Group>
                 <hr />
                 <Form.Group>
+                    <Form.Label>Описание товара на русском языке</Form.Label>
+                </Form.Group>
+                <Form.Group>
                     <Button variant="success" type="submit">
                         <FaCheck /> Сохранить
                     </Button>

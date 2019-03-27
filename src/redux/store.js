@@ -6,13 +6,13 @@ import thunk from 'redux-thunk';
 import reducers from './rootReducer';
 
 const persistConfig = {
-    key: 'root',
+    key: 'login',
     storage,
 }
   
 const persistedReducer = persistReducer(persistConfig, reducers);
 
-const store = createStore(
+const storeInstance = createStore(
     persistedReducer, 
     composeWithDevTools(
         applyMiddleware(
@@ -21,7 +21,9 @@ const store = createStore(
     )
 );
 
+export const store = storeInstance;
+
 export default () => {
-    let persistor = persistStore(store);
+    let persistor = persistStore(storeInstance);
     return { store, persistor };
 };

@@ -9,30 +9,47 @@ import { FaCheck } from 'react-icons/fa';
 
 import './style.css';
 
-const TranslateForm = () => {
+const TranslateForm = ({ submitHandler }) => {
     const title = 'Добавить перевод';
     return <div className="translate-form-page">
         <PageTitle>{ title }</PageTitle>
         <FormWrapper>
-            <Form>
+            <Form onSubmit={submitHandler}>
                 <Form.Group>
                     <Form.Label>Системное наименование</Form.Label>
-                    <Form.Control type="text" placeholder="Системное наименование" />
+                    <Form.Control 
+                        type="text" 
+                        name="system_name" 
+                        required="required"
+                        placeholder="Системное наименование" />
                     <Form.Text className="text-muted">
                         Не изменяйте данное значение, это может нарушить работу сайта
                     </Form.Text>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Текст на русском языке</Form.Label>
-                    <Form.Control as="textarea" rows="7" />
+                    <Form.Control 
+                        as="textarea" 
+                        name="name_ru" 
+                        required="required"
+                        placeholder="Текст на русском языке"
+                        rows="7" />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Текст на английском языке</Form.Label>
-                    <Form.Control as="textarea" rows="7" />
+                    <Form.Control 
+                        as="textarea" 
+                        name="name_en" 
+                        placeholder="Текст на английском языке"
+                        rows="7" />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Текст на китайском языке</Form.Label>
-                    <Form.Control as="textarea" rows="7" />
+                    <Form.Control 
+                        as="textarea" 
+                        name="name_cn" 
+                        placeholder="Текст на китайском языке"
+                        rows="7" />
                 </Form.Group>
                 <Form.Group>
                     <Button variant="success" type="submit">

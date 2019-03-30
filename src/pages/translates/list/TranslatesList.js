@@ -4,8 +4,6 @@ import PageTitle from 'components/page_title';
 import AddItemLink from 'components/add_item_link';
 import TranslatesTable from './TranslatesTable';
 
-import './style.css';
-
 const TranslatesListPage = ({ items }) => {
     return <div className="translates-list-page">
         <PageTitle>Переводы</PageTitle>

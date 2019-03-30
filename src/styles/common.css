@@ -24,3 +24,9 @@ body {
     max-width: 1200px;
     margin: auto;
 }
+.table-wrapper {
+  margin-top: 20px;
+}
+.checkbox-group input[type="checkbox"] {
+  margin-right: 10px;
+}

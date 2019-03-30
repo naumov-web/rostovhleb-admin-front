@@ -13,8 +13,8 @@ const TranslatesTable = ({ items }) => (
         </thead>
         <tbody>
             {items.map(
-                (item) => {
-                    return <tr>
+                (item, index) => {
+                    return <tr key={index}>
                         <td>
                             {item.system_name}
                         </td>

@@ -5,7 +5,7 @@ import { FaPencilAlt } from 'react-icons/fa';
 
 const EditItemLink = ({ link }) => {
     return <div className="add-item">
-        <Link className="btn btn-warning" to={link}>
+        <Link className="btn btn-primary" to={link}>
             <FaPencilAlt /> Редактировать
         </Link>
     </div>;

@@ -1,9 +1,11 @@
 import { createActions, handleActions } from 'redux-actions';
 import { 
     create as createTranslate, 
+    update as updateTranslate,
     index as loadTranslates 
 } from 'utils/apis/translates';
 import { createSelector } from 'reselect';
+import { push } from 'connected-react-router';
 
 const GET_TRANSLATES_REQUEST = 'GET_TRANSLATES_REQUEST';
 const GET_TRANSLATES_SUCCESS = 'GET_TRANSLATES_SUCCESS';
@@ -11,6 +13,9 @@ const GET_TRANSLATES_FAIL = 'GET_TRANSLATES_FAIL';
 const CREATE_TRANSLATE_REQUEST = 'CREATE_TRANSLATE_REQUEST';
 const CREATE_TRANSLATE_SUCCESS = 'CREATE_TRANSLATE_SUCCESS';
 const CREATE_TRANSLATE_FAIL = 'CREATE_TRANSLATE_FAIL';
+const UPDATE_TRANSLATE_REQUEST = 'UPDATE_TRANSLATE_REQUEST';
+const UPDATE_TRANSLATE_SUCCESS = 'UPDATE_TRANSLATE_SUCCESS';
+const UPDATE_TRANSLATE_FAIL = 'UPDATE_TRANSLATE_FAIL';
 
 const initialState = {
     translates: []
@@ -22,7 +27,10 @@ const actions = createActions(
     GET_TRANSLATES_FAIL,
     CREATE_TRANSLATE_REQUEST,
     CREATE_TRANSLATE_SUCCESS,
-    CREATE_TRANSLATE_FAIL
+    CREATE_TRANSLATE_FAIL,
+    UPDATE_TRANSLATE_REQUEST,
+    UPDATE_TRANSLATE_SUCCESS,
+    UPDATE_TRANSLATE_FAIL
 );
 
 const reducer = handleActions(
@@ -60,11 +68,21 @@ const effects = {
     },
     createTranslate: translate => async dispatch => {
         try {
-            const response = await createTranslate(translate);
-            const { data } = response;
-            dispatch(actions.createTranslateSuccess(data));
+            await createTranslate(translate);
+            await loadTranslates();
+            dispatch(push('/translates'));
         } catch (e) {
             dispatch(actions.createTranslateFail());
+        }
+        return true;
+    },
+    updateTranslate: (id, data) => async dispatch => {
+        try {
+            await updateTranslate(id, data);
+            await loadTranslates();
+            dispatch(push('/translates'));
+        } catch (e) {
+            dispatch(actions.updateTranslateFail());
         }
         return true;
     }

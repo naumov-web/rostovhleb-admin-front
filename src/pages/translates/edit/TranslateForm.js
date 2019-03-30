@@ -9,8 +9,8 @@ import { FaCheck } from 'react-icons/fa';
 
 import './style.css';
 
-const TranslateForm = ({ submitHandler }) => {
-    const title = 'Добавить перевод';
+const TranslateForm = ({ submitHandler, openedItem }) => {
+    const title = openedItem.system_name ? 'Редактировать перевод' : 'Добавить перевод';
     return <div className="translate-form-page">
         <PageTitle>{ title }</PageTitle>
         <FormWrapper>
@@ -21,6 +21,7 @@ const TranslateForm = ({ submitHandler }) => {
                         type="text" 
                         name="system_name" 
                         required="required"
+                        defaultValue={openedItem.system_name || ''}
                         placeholder="Системное наименование" />
                     <Form.Text className="text-muted">
                         Не изменяйте данное значение, это может нарушить работу сайта
@@ -32,6 +33,7 @@ const TranslateForm = ({ submitHandler }) => {
                         as="textarea" 
                         name="name_ru" 
                         required="required"
+                        defaultValue={openedItem.name_ru || ''}
                         placeholder="Текст на русском языке"
                         rows="7" />
                 </Form.Group>
@@ -40,6 +42,7 @@ const TranslateForm = ({ submitHandler }) => {
                     <Form.Control 
                         as="textarea" 
                         name="name_en" 
+                        defaultValue={openedItem.name_en || ''}
                         placeholder="Текст на английском языке"
                         rows="7" />
                 </Form.Group>
@@ -48,6 +51,7 @@ const TranslateForm = ({ submitHandler }) => {
                     <Form.Control 
                         as="textarea" 
                         name="name_cn" 
+                        defaultValue={openedItem.name_cn || ''}
                         placeholder="Текст на китайском языке"
                         rows="7" />
                 </Form.Group>

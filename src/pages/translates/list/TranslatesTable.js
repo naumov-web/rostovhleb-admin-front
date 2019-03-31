@@ -21,7 +21,7 @@ const TranslatesTable = ({ items }) => (
                         <td>
                             {item.name_ru}
                         </td>
-                        <td>
+                        <td className="text-center">
                             <EditItemLink link={`/translates/${item.id}`} />
                         </td>
                     </tr>

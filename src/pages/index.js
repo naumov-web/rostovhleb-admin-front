@@ -3,6 +3,8 @@ import * as React from 'react';
 import MainMenu from 'components/main_menu';
 import IndexPage from './main';
 import LoginPage from './login';
+import NewsListPage from './news/list';
+import NewsEditPage from './news/edit';
 import VacanciesListPage from './vacancies/list';
 import VacanciesEditPage from './vacancies/edit';
 import TranslatesListPage from './translates/list';
@@ -23,7 +25,8 @@ const AppRoutes = () => {
                 <Route exact path="/translates/:id" component={TranslatesEditPage} />
                 <Route exact path="/products" component={ProductsListPage} />
                 <Route exact path="/products/add" component={ProductsEditPage} />
-                <Route exact path="/news" component={TranslatesListPage} />
+                <Route exact path="/news" component={NewsListPage} />
+                <Route exact path="/news/add" component={NewsEditPage} />
                 <Route exact path="/vacancies" component={VacanciesListPage} />
                 <Route exact path="/vacancies/add" component={VacanciesEditPage} />
                 <Route exact path="/vacancies/:id" component={VacanciesEditPage} />

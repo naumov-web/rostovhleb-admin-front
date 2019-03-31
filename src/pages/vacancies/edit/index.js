@@ -26,11 +26,11 @@ const mapStateToProps = (state) => {
     
     if (pathname.indexOf('vacancies/add') === -1) {
         const parts = pathname.split('/');
-        const id = parts[parts.length - 1];
+        const id = parseInt(parts[parts.length - 1]);
         const items = vacanciesSelectors.getVacancies(state);
         
         for(let i = 0, len = items.length; i < len; i++) {
-            if (items[i].id == id) {
+            if (items[i].id === id) {
                 props['openedItem'] = items[i];
                 break;
             }

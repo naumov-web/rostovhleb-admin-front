@@ -25,11 +25,11 @@ const mapStateToProps = (state) => {
     
     if (pathname.indexOf('translates/add') === -1) {
         const parts = pathname.split('/');
-        const id = parts[parts.length - 1];
+        const id = parseInt(parts[parts.length - 1]);
         const translates = translatesSelectors.getTranslates(state);
         
         for(let i = 0, len = translates.length; i < len; i++) {
-            if (translates[i].id == id) {
+            if (translates[i].id === id) {
                 props['openedItem'] = translates[i];
                 break;
             }

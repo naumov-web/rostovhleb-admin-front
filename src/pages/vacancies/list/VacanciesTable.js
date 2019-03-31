@@ -3,7 +3,7 @@ import * as React from 'react';
 import EditItemLink from 'components/edit_item_link';
 import RemoveItemButton from 'components/remove_item_button';
 
-const VacanciesTable = ({ items }) => (
+const VacanciesTable = ({ items, removeVacancy }) => (
     <table className="table table-bordered">
         <thead>
             <tr>
@@ -20,13 +20,13 @@ const VacanciesTable = ({ items }) => (
                     <td>{item.id}</td>
                     <td>{item.name_ru}</td>
                     <td>
-                        <input type="checkbox" checked={item.is_enabled} />
+                        <input type="checkbox" onChange={() => null} checked={item.is_enabled} />
                     </td>
                     <td>
                         <EditItemLink link={`/vacancies/${item.id}`} />
                     </td>
                     <td>
-                        <RemoveItemButton />
+                        <RemoveItemButton onClickHandler={() => removeVacancy(item.id)} />
                     </td>
                 </tr>)
             )}

@@ -34,8 +34,10 @@ const enhancedVacanciesList = compose(
         }
     }),
     withHandlers({
-        removeVacancy(id) {
-
+        removeVacancy: ({ removeVacancy }) => id => {
+            if (window.confirm("Вы уверены, что хотите удалить вакансию?")) {
+                removeVacancy(id);
+            }
         }
     })
 )(VacanciesList);

@@ -47,6 +47,9 @@ const enhancedVacancyForm = compose(
     withHandlers({
         submitHandler: ({ history, createVacancy, updateVacancy, openedItem }) => (event) => {
             let values = inputs_composer(event.target.elements);
+            if (typeof values.is_enabled === 'undefined') {
+                values.is_enabled = false;
+            }
             event.preventDefault();
             if (openedItem.id) {
                 updateVacancy(openedItem.id, values);

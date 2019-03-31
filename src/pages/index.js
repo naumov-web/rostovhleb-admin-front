@@ -26,6 +26,7 @@ const AppRoutes = () => {
                 <Route exact path="/news" component={TranslatesListPage} />
                 <Route exact path="/vacancies" component={VacanciesListPage} />
                 <Route exact path="/vacancies/add" component={VacanciesEditPage} />
+                <Route exact path="/vacancies/:id" component={VacanciesEditPage} />
             </React.Fragment>
         </Switch>
     </BrowserRouter>;

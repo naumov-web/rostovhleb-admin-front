@@ -9,8 +9,8 @@ import { FaCheck } from 'react-icons/fa';
 
 import './style.css';
 
-const VacancyForm = ({ submitHandler }) => {
-    const title = 'Добавить вакансию';
+const VacancyForm = ({ submitHandler, openedItem }) => {
+    const title = openedItem.id ? 'Редактировать вакансию' : 'Добавить вакансию';
     return <div className="vacancy-form-page">
         <PageTitle>{ title }</PageTitle>
         <FormWrapper>
@@ -21,6 +21,7 @@ const VacancyForm = ({ submitHandler }) => {
                         name="name_ru" 
                         required="required"
                         placeholder="Наименование на русском языке"
+                        defaultValue={openedItem.name_ru || ''}
                         rows="7" />
                 </Form.Group>
                 <Form.Group>
@@ -28,6 +29,7 @@ const VacancyForm = ({ submitHandler }) => {
                     <Form.Control 
                         name="name_en" 
                         placeholder="Наименование на английском языке"
+                        defaultValue={openedItem.name_en || ''}
                         rows="7" />
                 </Form.Group>
                 <Form.Group>
@@ -35,6 +37,7 @@ const VacancyForm = ({ submitHandler }) => {
                     <Form.Control 
                         name="name_cn" 
                         placeholder="Наименование на китайском языке"
+                        defaultValue={openedItem.name_cn || ''}
                         rows="7" />
                 </Form.Group>
                 <hr />
@@ -45,6 +48,7 @@ const VacancyForm = ({ submitHandler }) => {
                         name="description_ru" 
                         required="required"
                         placeholder="Описание на русском языке"
+                        defaultValue={openedItem.description_ru || ''}
                         rows="7" />
                 </Form.Group>
                 <Form.Group>
@@ -53,6 +57,7 @@ const VacancyForm = ({ submitHandler }) => {
                         as="textarea" 
                         name="description_en" 
                         placeholder="Описание на английском языке"
+                        defaultValue={openedItem.description_en || ''}
                         rows="7" />
                 </Form.Group>
                 <Form.Group>
@@ -61,6 +66,7 @@ const VacancyForm = ({ submitHandler }) => {
                         as="textarea" 
                         name="description_en" 
                         placeholder="Описание на китайском языке"
+                        defaultValue={openedItem.description_cn || ''}
                         rows="7" />
                 </Form.Group>
                 <hr />
@@ -68,18 +74,23 @@ const VacancyForm = ({ submitHandler }) => {
                     <Form.Label>Стартовая зарплата</Form.Label>
                     <Form.Control 
                         name="salary_from" 
-                        placeholder="Стартовая зарплата" />
+                        placeholder="Стартовая зарплата"
+                        defaultValue={openedItem.salary_from || ''} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Конечная зарплата</Form.Label>
                     <Form.Control 
                         name="salary_to" 
-                        placeholder="Конечная зарплата" />
+                        placeholder="Конечная зарплата"
+                        defaultValue={openedItem.salary_to || ''} />
                 </Form.Group>
                 <hr/>
                 <Form.Group className="checkbox-group">
                     <Form.Label>
-                        <input type="checkbox" name="is_enabled" value="1" />
+                        <input type="checkbox" 
+                                name="is_enabled" 
+                                defaultChecked={openedItem.is_enabled}
+                                value="1" />
                         Включена
                     </Form.Label>
                 </Form.Group>

@@ -87,6 +87,18 @@ const effects = {
         }
         return true;
     },
+    updateVacancy: (id, vacancy) => async dispatch => {
+        try {
+            await updateVacancy(id, vacancy);
+            const response = await loadVacancies();
+            const { data } = response;
+            dispatch(actions.getVacanciesSuccess(data));
+            dispatch(push('/vacancies'));
+        } catch (e) {
+            dispatch(actions.updateVacancyFail());
+        }
+        return true;
+    },
     removeVacancy: id => async dispatch => {
         try {
             await removeVacancy(id);

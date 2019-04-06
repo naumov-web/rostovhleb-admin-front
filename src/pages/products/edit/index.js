@@ -9,7 +9,9 @@ import {
     selectors as productsSelectors 
 } from 'redux/ducks/products.duck';
 import ProductForm from './ProductForm';
+// HELPERS
 import base64Encode from 'utils/files/base64';
+import inputs_composer from 'utils/forms/inputs_composer';
 
 const mapDispatchToProps = dispatch => bindActionCreators(
     {
@@ -79,8 +81,21 @@ const enhancedProductForm = compose(
                 deleteNewFile(index);
                 deleteStateNewFile(index);
             },
-            onSubmit: () => event => {
+            onSubmit: ({ history, openedItem, new_files, createProduct }) => event => {
+                let values = inputs_composer(event.target.elements);
+                event.preventDefault();
+                if (openedItem.id) {
 
+                } else {
+                    createProduct(
+                        {
+                            ...values,
+                            new_files
+                        }
+                    );
+                }
+                history.push('/products');
+                return false;
             }
         }
     )

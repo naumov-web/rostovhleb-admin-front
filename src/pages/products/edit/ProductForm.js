@@ -8,18 +8,19 @@ import Button from 'react-bootstrap/Button';
 import RemoveImageButton from 'components/remove_image_button';
 import { FaCheck } from 'react-icons/fa';
 
-const ProductForm = ({ onChangeFile, removeNewFile, openedItem, new_files, categories }) => {
+const ProductForm = ({ onSubmit, onChangeFile, removeNewFile, openedItem, new_files, categories }) => {
     const title = 'Добавить товар';
     return <div className="product-form-page">
         <PageTitle>{ title }</PageTitle>
         <FormWrapper>
-            <Form>
+            <Form onSubmit={onSubmit}>
                 <Form.Group>
                     <Form.Label>Наименование товара на русском языке</Form.Label>
                     <Form.Control 
                         type="text" 
                         name="name_ru"
                         defaultValue={openedItem.name_ru || ''}
+                        required="required"
                         placeholder="Наименование товара на русском языке" 
                     />
                 </Form.Group>

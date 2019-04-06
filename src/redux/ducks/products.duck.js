@@ -1,6 +1,11 @@
 import { createActions, handleActions } from 'redux-actions';
 import { index as loadCategories } from 'utils/apis/categories';
+import { 
+    index as loadProducts, 
+    create as createProduct 
+} from 'utils/apis/products';
 import { createSelector } from 'reselect';
+import { push } from 'connected-react-router';
 
 const initialState = {
     products: [],
@@ -15,6 +20,8 @@ const DELETE_NEW_FILE = 'DELETE_NEW_FILE';
 const DELETE_FILE = 'DELETE_FILE';
 const GET_CATEGORIES_SUCCESS = 'GET_CATEGORIES_SUCCESS';
 const GET_CATEGORIES_FAIL = 'GET_CATEGORIES_FAIL';
+const GET_PRODUCTS_SUCCESS = 'GET_PRODUCTS_SUCCESS';
+const GET_PRODUCTS_FAIL = 'GET_PRODUCTS_FAIL';
 const CREATE_PRODUCT_SUCCESS = 'CREATE_PRODUCT_SUCCESS';
 const CREATE_PRODUCT_FAIL = 'CREATE_PRODUCT_FAIL';
 
@@ -24,6 +31,8 @@ const actions = createActions(
     DELETE_FILE,
     GET_CATEGORIES_SUCCESS,
     GET_CATEGORIES_FAIL,
+    GET_PRODUCTS_SUCCESS,
+    GET_PRODUCTS_FAIL,
     CREATE_PRODUCT_SUCCESS,
     CREATE_PRODUCT_FAIL
 );
@@ -37,6 +46,15 @@ const reducer = handleActions(
             return {
                 ...state,
                 categories: data.payload
+            };
+        },
+        [actions.getProductsSuccess]: (
+            state,
+            data
+        ) => {
+            return {
+                ...state,
+                products: data.payload
             };
         },
         [actions.addNewFile]: (
@@ -67,11 +85,25 @@ const reducer = handleActions(
 );
 
 const effects = {
-    createProduct: () => async dispatch => {
+    createProduct: product => async dispatch => {
         try {
-
+            await createProduct(product);
+            const response = await loadProducts();
+            const { data } = response;
+            dispatch(actions.getProductsSuccess(data));
+            dispatch(push('/products'));
         } catch (e) {
-
+            dispatch(actions.createProductFail());
+        }
+        return true;
+    },
+    loadProducts: () => async dispatch => {
+        try {
+            const response = await loadProducts();
+            const { data } = response;
+            dispatch(actions.getProductsSuccess(data));
+        } catch (e) {
+            dispatch(actions.getProductsFail());
         }
         return true;
     },

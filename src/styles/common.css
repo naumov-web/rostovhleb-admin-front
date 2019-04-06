@@ -30,3 +30,21 @@ body {
 .checkbox-group input[type="checkbox"] {
   margin-right: 10px;
 }
+hr {
+  border: 1px solid #000;
+}
+.photos-list {
+  margin-bottom: 20px;
+  display: flex;
+}
+.photos-list > div {
+  height: 100px;
+  position: relative;
+}
+.photos-list > div img {
+  height: 100%;
+}
+.photos-list > div > .delete-image-button {
+  position: absolute;
+  right: 0;
+}

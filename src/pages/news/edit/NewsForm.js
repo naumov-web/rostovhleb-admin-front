@@ -16,6 +16,53 @@ const NewsForm = () => {
         <FormWrapper>
             <Form>
                 <Form.Group>
+                    <Form.Label>Заголовок на русском языке</Form.Label>
+                    <Form.Control 
+                        name="name_ru" 
+                        required="required"
+                        placeholder="Заголовок на русском языке" />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Заголовок на английском языке</Form.Label>
+                    <Form.Control 
+                        name="name_en" 
+                        required="required"
+                        placeholder="Заголовок на английском языке" />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Заголовок на китайском языке</Form.Label>
+                    <Form.Control 
+                        name="name_cn" 
+                        required="required"
+                        placeholder="Заголовок на китайском языке" />
+                </Form.Group>
+                <hr />
+                <Form.Group>
+                    <Form.Label>Содержимое на русском языке</Form.Label>
+                    <Form.Control 
+                        as="textarea" 
+                        name="description_ru" 
+                        required="required"
+                        placeholder="Содержимое на русском языке"
+                        rows="7" />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Содержимое на английском языке</Form.Label>
+                    <Form.Control 
+                        as="textarea" 
+                        name="description_en" 
+                        placeholder="Содержимое на английском языке"
+                        rows="7" />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Содержимое на китайском языке</Form.Label>
+                    <Form.Control 
+                        as="textarea" 
+                        name="description_en" 
+                        placeholder="Содержимое на китайском языке"
+                        rows="7" />
+                </Form.Group>
+                <Form.Group>
                     <Button variant="success" type="submit">
                         <FaCheck /> Сохранить
                     </Button>

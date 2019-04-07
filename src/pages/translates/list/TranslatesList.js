@@ -7,7 +7,7 @@ import TranslatesTable from './TranslatesTable';
 const TranslatesListPage = ({ items }) => {
     return <div className="translates-list-page">
         <PageTitle>Переводы</PageTitle>
-        <AddItemLink link="/translates/add" text="Добавить перевод" />
+        <AddItemLink link="/translates-add" text="Добавить перевод" />
         <div className="table-wrapper">
             <TranslatesTable items={items} />
         </div>

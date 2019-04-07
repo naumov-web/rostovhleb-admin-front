@@ -3,7 +3,7 @@ import * as React from 'react';
 import EditItemLink from 'components/edit_item_link';
 import RemoveItemButton from 'components/remove_item_button';
 
-const ProductsTable = ({ items }) => (
+const ProductsTable = ({ items, removeProduct }) => (
     <table className="table table-bordered">
         <thead>
             <tr>
@@ -22,7 +22,11 @@ const ProductsTable = ({ items }) => (
                         <EditItemLink link={`/products/${item.id}`} />
                     </td>
                     <td className="text-center">
-                        <RemoveItemButton onClickHandler={() => null} />
+                        <RemoveItemButton onClickHandler={() => {
+                            if (window.confirm('Вы уверены, что хотите удалить товар?')) {
+                                removeProduct(item.id);
+                            }
+                        }} />
                     </td>
                 </tr>)
             )}

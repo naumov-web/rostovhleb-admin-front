@@ -8,8 +8,16 @@ import Button from 'react-bootstrap/Button';
 import RemoveImageButton from 'components/remove_image_button';
 import { FaCheck } from 'react-icons/fa';
 
-const ProductForm = ({ onSubmit, onChangeFile, removeNewFile, openedItem, new_files, categories }) => {
-    const title = 'Добавить товар';
+const ProductForm = ({ 
+    onSubmit, 
+    onChangeFile, 
+    removeNewFile, 
+    removeFile, 
+    openedItem, 
+    new_files, 
+    categories 
+}) => {
+    const title = openedItem.id ? 'Редактировать товар' : 'Добавить товар';
     return <div className="product-form-page">
         <PageTitle>{ title }</PageTitle>
         <FormWrapper>
@@ -144,6 +152,19 @@ const ProductForm = ({ onSubmit, onChangeFile, removeNewFile, openedItem, new_fi
                 <hr />
                 <Form.Group>
                     <Form.Label>Фотографии товара</Form.Label>
+                    <div className="photos-list">
+                        {
+                            openedItem.files && 
+                            openedItem.files.map(
+                                (item, index) => {
+                                    return <div key={'new_file' + index}>
+                                            <img src={item.url} alt="" />
+                                            <RemoveImageButton onClickHandler={() => removeFile(index)} />
+                                        </div>;
+                                }
+                            )
+                        }
+                    </div>
                     <div className="photos-list">
                         {
                             new_files.map(

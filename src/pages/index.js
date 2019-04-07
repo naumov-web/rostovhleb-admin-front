@@ -21,14 +21,15 @@ const AppRoutes = () => {
             <React.Fragment>
                 <MainMenu />
                 <Route exact path="/translates" component={TranslatesListPage} />
-                <Route exact path="/translates/add" component={TranslatesEditPage} />
+                <Route exact path="/translates-add" component={TranslatesEditPage} />
                 <Route exact path="/translates/:id" component={TranslatesEditPage} />
                 <Route exact path="/products" component={ProductsListPage} />
-                <Route exact path="/products/add" component={ProductsEditPage} />
+                <Route exact path="/products/:id" component={ProductsEditPage} />
+                <Route exact path="/products-add" component={ProductsEditPage} />
                 <Route exact path="/news" component={NewsListPage} />
-                <Route exact path="/news/add" component={NewsEditPage} />
+                <Route exact path="/news-add" component={NewsEditPage} />
                 <Route exact path="/vacancies" component={VacanciesListPage} />
-                <Route exact path="/vacancies/add" component={VacanciesEditPage} />
+                <Route exact path="/vacancies-add" component={VacanciesEditPage} />
                 <Route exact path="/vacancies/:id" component={VacanciesEditPage} />
             </React.Fragment>
         </Switch>

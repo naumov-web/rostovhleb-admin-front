@@ -28,7 +28,11 @@ const VacanciesTable = ({ items, removeVacancy, toggleVacancyEnabled }) => (
                         <EditItemLink link={`/vacancies/${item.id}`} />
                     </td>
                     <td className="text-center">
-                        <RemoveItemButton onClickHandler={() => removeVacancy(item.id)} />
+                        <RemoveItemButton onClickHandler={() => {
+                            if (window.confirm('Вы уверены, что хотите удалить вакансию?')) {
+                                removeVacancy(item.id);
+                            }
+                        }} />
                     </td>
                 </tr>)
             )}

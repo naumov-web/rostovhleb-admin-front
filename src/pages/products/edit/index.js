@@ -24,10 +24,26 @@ const mapDispatchToProps = dispatch => bindActionCreators(
 );
 
 const mapStateToProps = (state) => {
-    return {
+    const pathname = document.location.pathname;
+    const props = {
         openedItem: productsSelectors.getOpenedItem(state),
         categories: productsSelectors.getCategories(state)
     };
+
+    if (pathname.indexOf('products-add') === -1) {
+        const parts = pathname.split('/');
+        const id = parseInt(parts[parts.length - 1]);
+        const items = productsSelectors.getProducts(state);
+        
+        for(let i = 0, len = items.length; i < len; i++) {
+            if (items[i].id === id) {
+                props['openedItem'] = items[i];
+                break;
+            }
+        }
+    }
+
+    return props;
 };
 
 const enhancedProductForm = compose(
@@ -57,6 +73,13 @@ const enhancedProductForm = compose(
                 return {
                     new_files: files
                 };
+            },
+            deleteStateFile: ({ openedItem }) => index => {
+                const files = openedItem.files;
+                files.splice(index, 1);
+                return {
+                    openedItem
+                };
             }
         }
     ),
@@ -81,11 +104,22 @@ const enhancedProductForm = compose(
                 deleteNewFile(index);
                 deleteStateNewFile(index);
             },
-            onSubmit: ({ history, openedItem, new_files, createProduct }) => event => {
+            removeFile: ({ deleteStateFile, deleteFile }) => index => {
+                deleteFile(index);
+                deleteStateFile(index);
+            },
+            onSubmit: ({ history, openedItem, new_files, createProduct, updateProduct }) => event => {
                 let values = inputs_composer(event.target.elements);
                 event.preventDefault();
                 if (openedItem.id) {
-
+                    updateProduct(
+                        openedItem.id,
+                        {
+                            ...values,
+                            new_files,
+                            files: openedItem.files || []
+                        }
+                    );
                 } else {
                     createProduct(
                         {

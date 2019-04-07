@@ -24,7 +24,7 @@ const mapStateToProps = (state) => {
         openedItem: {}
     };
     
-    if (pathname.indexOf('vacancies/add') === -1) {
+    if (pathname.indexOf('vacancies-add') === -1) {
         const parts = pathname.split('/');
         const id = parseInt(parts[parts.length - 1]);
         const items = vacanciesSelectors.getVacancies(state);

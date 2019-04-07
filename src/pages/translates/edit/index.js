@@ -23,7 +23,7 @@ const mapStateToProps = (state) => {
         openedItem: {}
     };
     
-    if (pathname.indexOf('translates/add') === -1) {
+    if (pathname.indexOf('translates-add') === -1) {
         const parts = pathname.split('/');
         const id = parseInt(parts[parts.length - 1]);
         const translates = translatesSelectors.getTranslates(state);

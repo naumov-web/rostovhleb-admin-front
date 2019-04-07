@@ -7,7 +7,7 @@ import VacanciesTable from './VacanciesTable';
 const VacanciesListPage = (props) => {
     return <div className="vacancies-list-page">
         <PageTitle>Вакансии</PageTitle>
-        <AddItemLink link="/vacancies/add" text="Добавить вакансию" />
+        <AddItemLink link="/vacancies-add" text="Добавить вакансию" />
         <div className="table-wrapper">
             <VacanciesTable {...props} />
         </div>

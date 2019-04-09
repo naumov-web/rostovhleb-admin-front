@@ -15,7 +15,8 @@ const ProductForm = ({
     removeFile, 
     openedItem, 
     new_files, 
-    categories 
+    categories,
+    opened_item_files
 }) => {
     const title = openedItem.id ? 'Редактировать товар' : 'Добавить товар';
     return <div className="product-form-page">
@@ -154,12 +155,17 @@ const ProductForm = ({
                     <Form.Label>Фотографии товара</Form.Label>
                     <div className="photos-list">
                         {
-                            openedItem.files && 
-                            openedItem.files.map(
+                            opened_item_files && 
+                            opened_item_files.map(
                                 (item, index) => {
                                     return <div key={'new_file' + index}>
                                             <img src={item.url} alt="" />
-                                            <RemoveImageButton onClickHandler={() => removeFile(index)} />
+                                            <RemoveImageButton onClickHandler={
+                                                (e) => {
+                                                    e.preventDefault();
+                                                    removeFile(index);
+                                                }
+                                            } />
                                         </div>;
                                 }
                             )

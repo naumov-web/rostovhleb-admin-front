@@ -12,6 +12,7 @@ import { push } from 'connected-react-router';
 const initialState = {
     products: [],
     categories: [],
+    opened_item_files: [],
     openedItem: {
         new_files: []
     }
@@ -24,6 +25,7 @@ const GET_CATEGORIES_SUCCESS = 'GET_CATEGORIES_SUCCESS';
 const GET_CATEGORIES_FAIL = 'GET_CATEGORIES_FAIL';
 const GET_PRODUCTS_SUCCESS = 'GET_PRODUCTS_SUCCESS';
 const GET_PRODUCTS_FAIL = 'GET_PRODUCTS_FAIL';
+const SET_OPENED_ITEM = 'SET_OPENED_ITEM';
 const CREATE_PRODUCT_SUCCESS = 'CREATE_PRODUCT_SUCCESS';
 const CREATE_PRODUCT_FAIL = 'CREATE_PRODUCT_FAIL';
 const UPDATE_PRODUCT_SUCCESS = 'UPDATE_PRODUCT_SUCCESS';
@@ -39,6 +41,7 @@ const actions = createActions(
     GET_CATEGORIES_FAIL,
     GET_PRODUCTS_SUCCESS,
     GET_PRODUCTS_FAIL,
+    SET_OPENED_ITEM,
     CREATE_PRODUCT_SUCCESS,
     CREATE_PRODUCT_FAIL,
     UPDATE_PRODUCT_SUCCESS,
@@ -49,6 +52,16 @@ const actions = createActions(
 
 const reducer = handleActions(
     {
+        [actions.setOpenedItem]: (
+            state,
+            data
+        ) => {
+            return {
+                ...state,
+                openedItem: data.payload,
+                opened_item_files: data.payload.files
+            };
+        },
         [actions.getCategoriesSuccess]: (
             state,
             data
@@ -95,12 +108,18 @@ const reducer = handleActions(
             data
         ) => {
             const index = data.payload;
-            console.log(state);
-            const { openedItem } = state;
-            openedItem.files.splice(index, 1);
+            const { opened_item_files } = state;
+            const res = [];
+            for(let i = 0, len = opened_item_files.length; i < len; i++)
+            {
+                if (i === index) {
+                    continue;
+                }
+                res.push(opened_item_files[i]);
+            }
             return {
                 ...state,
-                ...openedItem
+                opened_item_files: res
             };
         }
     },
@@ -179,6 +198,10 @@ const selectors = {
     getOpenedItem: createSelector(
         [getState],
         s => s.openedItem
+    ),
+    getOpenedItemFiles: createSelector(
+        [getState],
+        s => s.opened_item_files
     )
 };
 

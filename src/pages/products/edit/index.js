@@ -13,6 +13,25 @@ import ProductForm from './ProductForm';
 import base64Encode from 'utils/files/base64';
 import inputs_composer from 'utils/forms/inputs_composer';
 
+const getOpenedItem = state => {
+    const pathname = document.location.pathname;
+    var res = productsSelectors.getOpenedItem(state);
+
+    if (pathname.indexOf('products-add') === -1) {
+        const parts = pathname.split('/');
+        const id = parseInt(parts[parts.length - 1]);
+        const items = productsSelectors.getProducts(state);
+        
+        for(let i = 0, len = items.length; i < len; i++) {
+            if (items[i].id === id) {
+                res = items[i];
+                break;
+            }
+        }
+    }
+    return res;
+};
+
 const mapDispatchToProps = dispatch => bindActionCreators(
     {
         ...productsActions,
@@ -24,24 +43,12 @@ const mapDispatchToProps = dispatch => bindActionCreators(
 );
 
 const mapStateToProps = (state) => {
-    const pathname = document.location.pathname;
+    
     const props = {
-        openedItem: productsSelectors.getOpenedItem(state),
+        openedItem: getOpenedItem(state),
+        opened_item_files: productsSelectors.getOpenedItemFiles(state),
         categories: productsSelectors.getCategories(state)
     };
-
-    if (pathname.indexOf('products-add') === -1) {
-        const parts = pathname.split('/');
-        const id = parseInt(parts[parts.length - 1]);
-        const items = productsSelectors.getProducts(state);
-        
-        for(let i = 0, len = items.length; i < len; i++) {
-            if (items[i].id === id) {
-                props['openedItem'] = items[i];
-                break;
-            }
-        }
-    }
 
     return props;
 };
@@ -52,13 +59,14 @@ const enhancedProductForm = compose(
         mapDispatchToProps
     ),
     withLifecycle({
-        onDidMount({ loadCategories }) {
+        onDidMount({ loadCategories, openedItem, setOpenedItem, dispatch }) {
             loadCategories();
+            setOpenedItem(openedItem);
         }
     }),
     withStateHandlers(
         {
-            new_files: []
+            new_files: [],
         },
         {
             addStateNewFile: ({ new_files }) => content => {
@@ -104,11 +112,24 @@ const enhancedProductForm = compose(
                 deleteNewFile(index);
                 deleteStateNewFile(index);
             },
-            removeFile: ({ deleteStateFile, deleteFile }) => index => {
+            removeFile: ({ openedItem, deleteFile }) => index => {
+                const files = [];
+                for(let i = 0, len = openedItem.files.length; i < len; i++) {
+                    if (i === index) {
+                        continue;
+                    }
+                    files.push(openedItem.files[i]);
+                }
                 deleteFile(index);
-                deleteStateFile(index);
             },
-            onSubmit: ({ history, openedItem, new_files, createProduct, updateProduct }) => event => {
+            onSubmit: ({ 
+                history, 
+                openedItem, 
+                new_files, 
+                createProduct, 
+                updateProduct, 
+                opened_item_files 
+            }) => event => {
                 let values = inputs_composer(event.target.elements);
                 event.preventDefault();
                 if (openedItem.id) {
@@ -117,7 +138,7 @@ const enhancedProductForm = compose(
                         {
                             ...values,
                             new_files,
-                            files: openedItem.files || []
+                            files: opened_item_files
                         }
                     );
                 } else {

@@ -5,16 +5,22 @@ import BackLink from 'components/back_link';
 import FormWrapper from 'components/form';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import RemoveImageButton from 'components/remove_image_button';
 import { FaCheck } from 'react-icons/fa';
 
 import './style.css';
 
-const NewsForm = () => {
+const NewsForm = ({ 
+    onSubmit,
+    new_files, 
+    onChangeFile,
+    removeNewFile 
+}) => {
     const title = 'Добавить новость';
     return <div className="news-form-page">
         <PageTitle>{ title }</PageTitle>
         <FormWrapper>
-            <Form>
+            <Form onSubmit={onSubmit}>
                 <Form.Group>
                     <Form.Label>Заголовок на русском языке</Form.Label>
                     <Form.Control 
@@ -26,14 +32,12 @@ const NewsForm = () => {
                     <Form.Label>Заголовок на английском языке</Form.Label>
                     <Form.Control 
                         name="name_en" 
-                        required="required"
                         placeholder="Заголовок на английском языке" />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Заголовок на китайском языке</Form.Label>
                     <Form.Control 
                         name="name_cn" 
-                        required="required"
                         placeholder="Заголовок на китайском языке" />
                 </Form.Group>
                 <hr />
@@ -61,6 +65,24 @@ const NewsForm = () => {
                         name="description_en" 
                         placeholder="Содержимое на китайском языке"
                         rows="7" />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Фотографии новости</Form.Label>
+                    <div className="photos-list">
+                        {
+                            new_files.map(
+                                (item, index) => {
+                                    return <div key={'new_file' + index}>
+                                            <img src={item.content} alt="" />
+                                            <RemoveImageButton onClickHandler={() => removeNewFile(index)} />
+                                        </div>;
+                                }
+                            )
+                        }
+                    </div>
+                    <div>
+                        <input type="file" onChange={(e) => onChangeFile(e)} />
+                    </div>
                 </Form.Group>
                 <Form.Group>
                     <Button variant="success" type="submit">
